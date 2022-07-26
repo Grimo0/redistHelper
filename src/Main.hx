@@ -308,18 +308,6 @@ class Main {
 					}
 				}
 				else {
-					// SDL Windows 64bits
-					makeHl(baseRedistDir+"/opengl_win/"+projectName, HL_RUNTIME_FILES_WIN, false);
-					if( zipping )
-						zipFolder( '$baseRedistDir/${projectName}_opengl_win.zip', baseRedistDir+"/opengl_win/");
-
-					// SDL Windows 32bits
-					if( hasParameter("-hl32") ) {
-						makeHl(baseRedistDir+"/opengl_win32/"+projectName, HL_RUNTIME_FILES_WIN, true);
-						if( zipping )
-							zipFolder( '$baseRedistDir/${projectName}_opengl_win32.zip', baseRedistDir+"/opengl_win32/");
-					}
-
 					// SDL Mac
 					// if( hasParameter("-mac") ) {
 					// 	makeHl(baseRedistDir+"/opengl_mac/"+projectName, HL_RUNTIME_FILES_MAC, false);
@@ -332,6 +320,18 @@ class Main {
 						makeHl(baseRedistDir+"/opengl_linux/"+projectName, HL_RUNTIME_FILES_LINUX, false);
 						if( zipping )
 							zipFolder( '$baseRedistDir/${projectName}_opengl_linux.zip', baseRedistDir+"/opengl_linux/");
+					} else {
+						// SDL Windows 64bits
+						makeHl(baseRedistDir+"/opengl_win/"+projectName, HL_RUNTIME_FILES_WIN, false);
+						if( zipping )
+							zipFolder( '$baseRedistDir/${projectName}_opengl_win.zip', baseRedistDir+"/opengl_win/");
+	
+						// SDL Windows 32bits
+						if( hasParameter("-hl32") ) {
+							makeHl(baseRedistDir+"/opengl_win32/"+projectName, HL_RUNTIME_FILES_WIN, true);
+							if( zipping )
+								zipFolder( '$baseRedistDir/${projectName}_opengl_win32.zip', baseRedistDir+"/opengl_win32/");
+						}
 					}
 				}
 			}
@@ -786,7 +786,7 @@ class Main {
 			// avoid deleting unexpected files
 			directoryContainsOnly(
 				d,
-				["exe","dat","dll","hdll","ndll","js","swf","html","dylib","zip","lib","bin","bat","pak"],
+				["exe","dat","dll","hdll","ndll","js","swf","html","dylib","zip","lib","bin","bat","pak", "so"],
 				allExtraFiles
 			);
 			FileTools.deleteDirectoryRec(d);
